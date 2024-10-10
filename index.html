@@ -1,23 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTI Karta</title>
+    <style>
+        /* Grundläggande styling */
+
+
+        .klassrum {
+            fill: #808080;
+            stroke: #3b3b3b;
+            stroke-width: 4;
+            cursor: pointer;
+            transition: fill 0.3s;
+        }
+
+        .klassrum:hover {
+            fill: #2fa53f;
+        }
+
+        .lines {
+            fill: none;
+            stroke-width: 4;
+            stroke: #3b3b3b;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            pointer-events: none;
+            display: none;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
+
     <svg width="700" height="900">
-        <rect  width="100%" height="100%" stroke="red" stroke-width="6" fill="white" />
-        <path d="M579 4 L696 4 L696 163.5 L592.1 163.5 L592.1 81.75 L579 81.75 Z"
-        style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6" />
-        <path d="M579 4 L484.2 4 L484.2 81.75 L579 81.75  Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M696 163.5 L696 323.7 L592.1 323.7 L592.1 163.5 Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M696 323.7 L696 480.7 L592.1 480.7 L592.1 323.7 Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M696 480.7 L696 519.9 L647.7 519.9 L647.7 480.7Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M484.2 81.75 L484.2 137.35 Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M552.9 137.35 L552.9 238.7 L389.4 238.7 L389.4 137.35 Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M552.9 238.7 L552.9 297.6 L467.9 297.6 L467.9 238.7Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-        <path d="M552.9 297.6 L552.9 356.5 L467.9 356.5 L467.9 297.6Z"  style="fill:rgb(187, 187, 187);stroke:rgb(59, 59, 59);stroke-width:6"/>
-      </svg>
+
+        <rect width="100%" height="100%" stroke="none" stroke-width="6" style="fill: white;" />
+        <path d="M385.35 5 L696 5 L696 896 L5 896 L5 592 L385.35 592 Z " style="fill: rgb(255, 236, 182);" />
+        <path id="Athena" class="klassrum" d="M579 5 L696 5 L696 163.5 L592.1 163.5 L592.1 81.75 L579 81.75 Z" />
+        <path id="" class="lines" d="M385.35 5 L696 5 Z" />
+        <path id="Förråd" class="klassrum" d="M385.35 5 L385.35 137.35 L484.2 137.35 L484.2 5Z" />
+        <path id="Makerspace" class="klassrum" d="M579 5 L484.2 5 L484.2 81.75 L579 81.75  Z" />
+        <path id="Troja" class="klassrum" d="M696 163.5 L696 323.7 L592.1 323.7 L592.1 163.5 Z" />
+        <path id="Platon" class="klassrum" d="M696 323.7 L696 480.7 L592.1 480.7 L592.1 323.7 Z" />
+        <path id="Kontor" class="klassrum" d="M696 480.7 L696 519.9 L647.7 519.9 L647.7 480.7Z" />
+        <path id="" class="lines" d="M484.2 81.75 L484.2 137.35 Z" />
+        <path id="Aristoteles" class="klassrum" d="M552.9 137.35 L552.9 238.7 L385.35 238.7 L385.35 137.35 Z" />
+        <path id="Sokrates" class="klassrum" d="M552.9 238.7 L552.9 297.6 L467.9 297.6 L467.9 238.7Z" />
+        <path id="Lärarrum" class="klassrum" d="M552.9 297.6 L552.9 356.5 L467.9 356.5 L467.9 297.6Z" />
+        <path id="" class="lines" d="M696 519.9 L696 732.45  Z" />
+        <path id="Rektorns Kontor" class="klassrum" d="M696 732.45 L696 778.2 L633.9 778.2 L633.9 732.45Z" />
+        <path id="Sapfo" class="klassrum"
+            d="M 696 778.2 L696 896 L568.5 896 L568.5 794.6 L633.9 794.6  L633.9 778.2 Z" />
+        <path id="Hermes" class="klassrum" d="M568.5 896 L460.6 896 L460.6 794.6 L568.5 794.6 Z" />
+        <path id="Pheme" class="klassrum" d="M460.6 896 L375.6 896 L375.6 794.6 L460.6 794.6Z" />
+        <path id="Arkimedes" class="klassrum" d="M375.6 896 L267.7 896 L267.7 794.6 L375.6 794.6Z" />
+        <path id="Lab" class="klassrum" d="M267.7 896 L225.2 896 L225.2 794.6 L267.7 794.6Z" />
+        <path id="Skolsköterska" class="klassrum" d="M225.2 896 L179.4 896 L179.4 820.8 L225.2 820.8Z" />
+        <path id="TE4 Kontor" class="klassrum" d="M179.4 896 L117.3 896 L117.3 820.8 L179.4 820.8Z" />
+        <path id="Lärarrum" class="klassrum"
+            d="M117.3 820.8 L110.8 820.8 L110.8 781.6 L91.2 781.6 L91.2 677 L5 677 L5 896 L117.3 896 Z" />
+        <path id="Lärar Fikarum" class="klassrum" d="M91.2 677 L91.2 592 L5 592 L5 677Z" />
+        <path id="" class="lines" d="M91.2 592 L385.35 592 L385.35 5 " />
+        <path id="Fotostudio" class="klassrum" d="M385.35 238.7 L385.35 356.5 L467.9 356.5 L467.9 238.7Z " />
+        <path id="Handikapstoa" class="klassrum" d="M110.8 781.6 L150 781.6 L150 820.8 L110.8 820.8 Z " />
+        <path id="" class="lines" d="M225.2 794.6 L 225.2 781.6 L195.8 781.6 LZ " />
+        <path id="Lärarutgång" class="klassrum" d="M195.8 755.4 L300.4 755.4 L300.4 677 L 195.8 677Z " />
+        <path id="Toaletter" class="klassrum" d="M300.4 677 L388.7 677 L388.7 726 L300.4 726 Z " />
+        <path id="Skrivarrum" class="klassrum" d="M388.7 677 L427.9 677 L427.9 726 L388.7 726Z " />
+        <path id="Admin/Biblotekarie Kontor" class="klassrum" d="M427.9 677 L486.8 677 L486.8 726 L427.9 726 Z " />
+        <path id="Serverrum" class="klassrum" d="M486.8 677 L519.5 677 L519.5 726 L486.8 726Z " />
+        <path id="" class="lines" d="M450.8 677 L450.8 480.8Z " />
+        <path id="Elevutgång" class="klassrum"
+            d="M519.5 677 L605 677 L605 572.4 L519.5 572.4 L 519.5 621.4 L 450.8 621.4 L450.8 677 Z " />
+        <path id="Toaletter" class="klassrum" d="M605 572.4 L605 539.7 L519.5 539.7 L519.5 572.4Z " />
+        <image href="https://ntigymnasiet.se/wp-content/uploads/sites/24/2023/04/nti-lasarstider-terminstider-202204-600x600.png" x="2"
+            y="2" height="auto" width="200" ; />
+        <image
+            href="https://ntigymnasiet.se/wp-content/uploads/2023/04/nti-kvalitetsarbete-202204-400x400.png"
+            x="150" y="180" height="auto" width="200" ; />
+            <image
+            href="https://ntigymnasiet.se/wp-content/uploads/sites/24/2023/04/nti-oppet-hus-gymnasiet-202204-600x600.png"
+            x="2" y="350" height="auto" width="200" ; />
+
+
+
+
+    </svg>
+    <script>
+        // JavaScript för interaktivitet
+        const klassrums = document.querySelectorAll('.klassrum');
+        const tooltip = document.getElementById('tooltip');
+        let ListId = document.querySelectorAll('.klassrum')
+        const klassrumList = []
+        klassrums.forEach(klassrum => {
+            klassrum.addEventListener('mouseover', (e) => {
+                const klassrumName = klassrum.id.replace('_', ' ').toUpperCase();
+
+                tooltip.style.display = 'block';
+                tooltip.textContent = klassrumName;
+            });
+
+            klassrum.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY + 10 + 'px';
+            });
+
+            klassrum.addEventListener('mouseout', () => {
+                tooltip.style.display = 'none';
+            });
+
+            klassrum.addEventListener('click', () => {
+                console.log(klassrumList)
+                console.log(ListId)
+                alert([klassrumList] + 'Du klickade på ' + klassrum.id.replace('_', ' '));
+
+                // Här kan ni lägga till mer avancerad funktionalitet, som att visa information i en sidopanel
+            });
+        });
+
+    </script>
+
 </body>
+
 </html>
